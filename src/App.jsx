@@ -1,33 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid'
+
+let nextId = 0;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [listItem, setListItem] = useState("");
+
+  let tempList = JSON.parse(localStorage.getItem('list'))
+
+  const [list, setList] = useState(tempList ? tempList : []);
+
+  
+  useEffect(() => {
+    localStorage.setItem("list", JSON.stringify(list))
+  }, [list])
+
+  
+  function changeById (ident) {
+    setList((changedItems) => {
+      return changedItems.map((item) => {
+        if (item.id === ident) {
+          return {id: ident, task: listItem}
+        }
+        else {
+          return {id: item.id, task: item.task}
+        }
+      })
+    })
+  }
+
+  function deleteById (ident) {
+    setList((savedItems) => {
+      return savedItems.filter((item) => item.id !== ident)
+    })
+  }
+
+  function populateItem(populateList) {
+    return (
+      <div>
+      {populateList.map((item) => (
+        <li key={item.id}>{item.task}
+          <button onClick={() => {
+            deleteById(item.id)
+          }
+        } >Delete</button>
+          <button onClick={() => {
+            changeById(item.id)
+          }
+        } >Change</button>
+        </li>
+      ))}
+      </div>
+    )
+  }
+  
+
+ 
+  
+  function stateItem() {
+    return (
+      <div>
+        <input className="m-2" value={listItem} onChange={(e) => setListItem(e.target.value)}></input>
+          <button onClick={() => {setList([
+                                  ...list, 
+                                  {id: (uuidv4()), task: listItem}]);
+                        }}>Add To-Do Item</button>
+          <ul>
+            {populateItem(list)}
+          </ul>
+      </div>
+    )
+  }
+
+  
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        {stateItem()}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }

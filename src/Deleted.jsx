@@ -63,6 +63,7 @@ function Deleted() {
   }
 
 
+
   function populateItem(populateList) { //function to display items
     return (
       <div className="">
@@ -97,7 +98,7 @@ function Deleted() {
       <>
         <div className="d-flex justify-content-center align-items-center vh-100">
         
-          <div style={{...styles.background}} className="p-3 border border-5 ">
+          <div style={{...styles.background}} className="p-3 border border-5 border-dark">
             <div className="d-flex justify-content-center row">
             <Link to='/' className="col-12">✏️To-Do</Link>
             <div style={{...styles.title}}>HENRY'S TO-DONE LIST<div>

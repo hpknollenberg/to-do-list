@@ -19,7 +19,8 @@ const styles = {
   },
   addButton: {
     width: "fit-content",
-    height: "fit-content"
+    height: "fit-content",
+    marginRight: "5px"
   },
   title: {
     fontWeight: "bold"
@@ -83,6 +84,11 @@ function App() {
     })
   }
 
+  function deleteAll (ident, deletedTask, itemCheck) {
+    setCompletedList([...completedList, ...list]) //adds list to completed list
+    setList([]) //sets list to empty array
+  }
+
   function populateItem(populateList) { //function to display items
     return (
       <div className="">
@@ -128,6 +134,7 @@ function App() {
         <input className="me-3 mb-3 mt-3" style={{...styles.inputBox}} value={listItem} onChange={(e) => setListItem(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleEnter()}></input> 
           <button onClick={handleEnter} style={{...styles.addButton}}
                   onKeyDown={((e) => e.key === 'Enter' && handleEnter)}>Add To-do</button>
+          <button onClick={deleteAll} style={{...styles.addButton}}>🗑️All</button>
           <ul className="p-0">
             {populateItem(list)} {/* Calls function to display items*/}
           </ul>

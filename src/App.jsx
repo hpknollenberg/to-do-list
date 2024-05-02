@@ -2,7 +2,23 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid'
 
-let nextId = 0;
+
+const styles = {
+  list: {
+    listStyleType: "none",
+  },
+  listWords: {
+    maxWidth: "150px",
+    wordWrap: "break-word"
+  },
+  inputBox: {
+    width: "50%"
+  },
+  addButton: {
+    width: "fit-content",
+    height: "fit-content"
+  },
+}
 
 function App() {
   const [listItem, setListItem] = useState("");
@@ -38,17 +54,22 @@ function App() {
 
   function populateItem(populateList) {
     return (
-      <div>
+      <div className="">
       {populateList.map((item) => (
-        <li key={item.id}>{item.task}
-          <button onClick={() => {
+        <li key={item.id} style={{...styles.list}} className="d-flex justify-content-between">
+          <div style={{...styles.listWords}}>
+            {item.task}
+          </div>
+          <div>
+          <button className="m-2"
+            onClick={() => {
             deleteById(item.id)
           }
-        } >Delete</button>
+        } >🗑️</button>
           <button onClick={() => {
             changeById(item.id)
           }
-        } >Change</button>
+        } >Edit</button></div>
         </li>
       ))}
       </div>
@@ -60,13 +81,13 @@ function App() {
   
   function stateItem() {
     return (
-      <div>
-        <input className="m-2" value={listItem} onChange={(e) => setListItem(e.target.value)}></input>
+      <div className="">
+        <input className="me-3 mb-3 mt-3" style={{...styles.inputBox}} value={listItem} onChange={(e) => setListItem(e.target.value)}></input>
           <button onClick={() => {setList([
                                   ...list, 
                                   {id: (uuidv4()), task: listItem}]);
-                        }}>Add To-Do Item</button>
-          <ul>
+                        }} style={{...styles.addButton}}>Add To-do</button>
+          <ul className="p-0">
             {populateItem(list)}
           </ul>
       </div>
@@ -76,9 +97,12 @@ function App() {
   
 
   return (
-    <>
-      <div>
-        {stateItem()}
+    <><div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="p-3 border border-5 ">
+          <div className="d-flex justify-content-center">
+            HENRY'S TO-DO LIST</div>
+          {stateItem()}
+        </div>
       </div>
     </>
   )

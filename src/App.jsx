@@ -94,15 +94,13 @@ function App() {
       <div className="">
       {populateList.map((item) => ( //iterates through list and displays the listItem as well as buttons to delete and change
         <li key={item.id} style={{...styles.list}} className="d-flex justify-content-between">
-          <div style={{...styles.listWords}} className="row">
-              <input type="checkbox" className="m-2 col-1" 
+          <div style={{...styles.listWords}} className="">
+              <input type="checkbox" className="m-2" 
               checked={item.check}
               onChange={() => {
                 checkById(item.id, item.task, item.check) //input to check
               }}></input>
-            <div className="col-9">
               {item.task}
-            </div>
           </div>
           <div>
             <button className="m-1" //button to delete

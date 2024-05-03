@@ -10,7 +10,7 @@ const styles = {
     alignItems: "center"
   },
   listWords: {
-    maxWidth: "150px",
+    maxWidth: "165px",
     wordWrap: "break-word",
   },
   inputBox: {
@@ -69,23 +69,27 @@ function Deleted() {
       <div className="">
       {populateList.map((item) => ( //iterates through list and displays the listItem as well as buttons to delete and change
         <li key={item.id} style={{...styles.list}} className="d-flex justify-content-between">
-          <div style={{...styles.listWords}}>
-          <input type="checkbox" className="me-2" 
-            checked={item.check} />
-            {item.task}
+          <div style={{...styles.listWords}} className="row">
+              <input type="checkbox" className="m-2 col-1" 
+                checked={item.check} />
+            <div className="col-9">
+              {item.task}
+            </div>
           </div>
           <div>
             <button className="m-2" //button to delete
               onClick={() => {
               deleteById(item.id)
-            }
-          } >🗑️♾️</button> {/* button to change */}
+              }} 
+            >🗑️♾️
+            </button> {/* button to change */}
             <button
               onClick={() => {
                 retrieveById(item.id, item.task, item.check)
               }}
-            >🔄️</button>
-        </div>
+            >🔄️
+            </button>
+          </div>
         </li>
       ))}
       </div>
@@ -100,9 +104,13 @@ function Deleted() {
         
           <div style={{...styles.background}} className="p-3 border border-5 border-dark">
             <div className="d-flex justify-content-center row">
-            <Link to='/' className="col-12">✏️To-Do</Link>
-            <div style={{...styles.title}}>HENRY'S TO-DONE LIST<div>
-              Deleted Tasks: {completedList.length}</div></div></div>
+              <Link to='/' className="col-12">✏️To-Do</Link>
+              <div style={{...styles.title}}>HENRY'S TO-DONE LIST
+                <div className="mb-2">
+                  Deleted Tasks: {completedList.length}
+                </div>
+              </div>
+            </div>
             {populateItem(completedList)}
             </div>
       </div>

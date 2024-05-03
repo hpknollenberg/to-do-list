@@ -11,16 +11,16 @@ const styles = {
     alignItems: "center"
   },
   listWords: {
-    maxWidth: "150px",
+    maxWidth: "185px",
     wordWrap: "break-word",
   },
-  inputBox: {
-    width: "50%"
+     inputBox: {
+     width: "50%",
   },
   addButton: {
     width: "fit-content",
     height: "fit-content",
-    marginRight: "5px"
+    marginRight: "10px"
   },
   title: {
     fontWeight: "bold"
@@ -94,25 +94,30 @@ function App() {
       <div className="">
       {populateList.map((item) => ( //iterates through list and displays the listItem as well as buttons to delete and change
         <li key={item.id} style={{...styles.list}} className="d-flex justify-content-between">
-          
-          <div style={{...styles.listWords}}>
-            <input type="checkbox" className="me-2" 
-            checked={item.check}
-            onChange={() => {
-              checkById(item.id, item.task, item.check) //input to check
-            }}></input>
-            {item.task}
+          <div style={{...styles.listWords}} className="row">
+              <input type="checkbox" className="m-2 col-1" 
+              checked={item.check}
+              onChange={() => {
+                checkById(item.id, item.task, item.check) //input to check
+              }}></input>
+            <div className="col-9">
+              {item.task}
+            </div>
           </div>
           <div>
-          <button className="m-2" //button to delete
-            onClick={() => {
-            deleteById(item.id, item.task, item.check)
-          }
-        } >🗑️</button> {/* button to change */}
-          <button onClick={() => {
-            changeById(item.id, item.check)
-          }
-        } >✏️</button></div>
+            <button className="m-1" //button to delete
+              onClick={() => {
+              deleteById(item.id, item.task, item.check)
+              }} 
+            >🗑️
+            </button> {/* button to change */}
+            <button 
+              onClick={() => {
+              changeById(item.id, item.check)
+              }} 
+            >✏️
+            </button>
+          </div>
         </li>
       ))}
       </div>
@@ -134,7 +139,7 @@ function App() {
         <input className="me-3 mb-3 mt-3" style={{...styles.inputBox}} value={listItem} onChange={(e) => setListItem(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleEnter()}></input> 
           <button onClick={handleEnter} style={{...styles.addButton}}
                   onKeyDown={((e) => e.key === 'Enter' && handleEnter)}>Add To-do</button>
-          <button onClick={deleteAll} style={{...styles.addButton}}>🗑️All</button>
+          <button onClick={deleteAll} style={{...styles.addButton}} className="mb-2">🗑️All</button>
           <ul className="p-0">
             {populateItem(list)} {/* Calls function to display items*/}
           </ul>
@@ -149,11 +154,14 @@ function App() {
     <>
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div style={{...styles.background}} className="p-3 border border-5 border-dark">
-          <div className="d-flex justify-content-between row">
-          <Link to='/deleted' className="col-12">🗑️To-Done</Link>
-            <div style={{...styles.title}}>HENRY'S TO-DO LIST<div>
-              Tasks: {list.length}</div>
-              </div></div>
+          <div className="d-flex row">
+            <Link to='/deleted' className="col-12">🗑️To-Done</Link>
+              <div style={{...styles.title}}>HENRY'S TO-DO LIST
+                <div>
+                  Tasks: {list.length}
+                </div>
+              </div>
+          </div>
           {stateItem()}
         </div>
       </div>

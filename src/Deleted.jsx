@@ -13,13 +13,6 @@ const styles = {
     maxWidth: "165px",
     wordWrap: "break-word",
   },
-  inputBox: {
-    width: "50%"
-  },
-  addButton: {
-    width: "fit-content",
-    height: "fit-content"
-  },
   title: {
     fontWeight: "bold"
   },
